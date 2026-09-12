@@ -82,13 +82,15 @@ async function(e){
         }
     );
 
-    if(response.ok){
+if(response.ok){
 
-        modal.classList.add("active");
+    modal.classList.add("active");
 
-        form.reset();
+    form.reset();
 
-    }else{
+    form.querySelector("button").disabled = true;
+
+}else{
 
         alert("送信に失敗しました");
 
