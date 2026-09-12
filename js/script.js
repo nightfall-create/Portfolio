@@ -52,45 +52,42 @@ links.forEach(function (link) {
 
 
 /* ========= フォーム =========== */
-const form =
-document.getElementById("contact-form");
 
-const modal =
-document.getElementById("modal");
+const form = document.getElementById("contact-form");
 
-const modalClose =
-document.getElementById("modal-close");
+const modal = document.getElementById("modal");
 
-form.addEventListener(
-"submit",
-async function(e){
+const modalClose = document.getElementById("modal-close");
+
+form.addEventListener("submit", async function(e){
 
     e.preventDefault();
 
-    const data =
-    new FormData(form);
+    const data = new FormData(form);
 
-    const response =
-    await fetch(
+    const response = await fetch(
         form.action,
         {
-            method:"POST",
-            body:data,
-            headers:{
-                "Accept":"application/json"
+            method: "POST",
+            body: data,
+            headers: {
+                "Accept": "application/json"
             }
         }
     );
 
-if(response.ok){
+    if(response.ok){
 
-    modal.classList.add("active");
+        // 入力内容を全部削除
+        form.reset();
 
-    form.reset();
+        // 送信ボタンを無効にする
+        form.querySelector("button[type='submit']").disabled = true;
 
-    form.querySelector("button").disabled = true;
+        // 送信完了モーダル
+        modal.classList.add("active");
 
-}else{
+    }else{
 
         alert("送信に失敗しました");
 
@@ -98,12 +95,8 @@ if(response.ok){
 
 });
 
-modalClose.addEventListener(
-"click",
-function(){
+modalClose.addEventListener("click", function(){
 
-    modal.classList.remove(
-        "active"
-    );
+    modal.classList.remove("active");
 
 });
